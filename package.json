@@ -1,0 +1,40 @@
+{
+  "name": "ai-art",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --port 4200 --ssl --proxy-config ./proxy.config.json",
+    "dev:mobile": "ng serve --host 192.168.1.246 --port 4200 --ssl --proxy-config ./proxy.config.json",
+    "build": "ng build",
+    "build:server": "tsc --project tsconfig.server.json",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "~13.3.0",
+    "@angular/cdk": "^13.3.9",
+    "@angular/common": "~13.3.0",
+    "@angular/compiler": "~13.3.0",
+    "@angular/core": "~13.3.0",
+    "@angular/forms": "~13.3.0",
+    "@angular/material": "^13.3.9",
+    "@angular/platform-browser": "~13.3.0",
+    "@angular/platform-browser-dynamic": "~13.3.0",
+    "@angular/service-worker": "~13.3.0",
+    "fs-extra": "^11.1.0",
+    "rxjs": "~7.5.0",
+    "swiper": "^8.4.5",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.11.4"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~13.3.3",
+    "@angular/cli": "~13.3.3",
+    "@angular/compiler-cli": "~13.3.0",
+    "@types/fs-extra": "^9.0.13",
+    "@types/node": "^12.11.1",
+    "ts-node": "^10.9.1",
+    "typescript": "~4.6.2"
+  }
+}

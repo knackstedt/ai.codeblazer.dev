@@ -1,0 +1,52 @@
+<div class="root">
+
+    <mat-toolbar>
+        <span style="margin-right: 16px; padding-right: 16px; border-right: 1px solid #fff4">AI Art</span>
+        <button mat-button><a href="https://github.com/knackstedt">GitHub</a></button>
+        <button mat-button><a href="https://www.linkedin.com/in/andrew-knackstedt/">LinkedIn</a></button>
+        <div style="flex: 1"></div>
+        <button mat-button (click)="showInfoDialog()">
+            <img src="assets/icons/dialog-question-symbolic.svg">
+        </button>
+    </mat-toolbar>
+    <div style="flex: 1">
+        <mat-tab-group>
+            <mat-tab *ngFor="let imageGroup of carouselImageGroups" [label]="imageGroup.group">
+                <swiper
+                    #swiper
+                    style="--swiper-navigation-color: #fff;--swiper-pagination-color: #fff"
+                    [speed]="600"
+                    [resistanceRatio]="0"
+                    [centeredSlides]="true"
+                    [spaceBetween]="spaceBetween"
+                    [lazy]="true"
+                    [pagination]="{ clickable: true, type: 'fraction' }"
+                    [navigation]="true"
+                    [keyboard]="{ enabled: true }"
+                    [virtual]="true"
+                    (slideChange)="onSlideChanged($event, imageGroup)"
+                    >
+                    <ng-template swiperSlide *ngFor="let image of imageGroup.items; let i = index">
+                        <div class="container" [class.opened]="imageGroup['activeSlide'] == i">
+                            <div class="details">
+                                <div class="inner">
+                                    <div class="prompt">
+                                        <span>{{image.prompt}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cover">
+                                <img [src]="image.url">
+                                <!-- <div class="title">{{image.prompt}}</div> -->
+                            </div>
+                        </div>
+                    </ng-template>
+                </swiper>
+            </mat-tab>
+            <mat-tab>
+
+            </mat-tab>
+        </mat-tab-group>
+        <!-- Snake game... -->
+    </div>
+</div>
