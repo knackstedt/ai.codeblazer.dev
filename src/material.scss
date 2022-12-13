@@ -50,3 +50,8 @@ $dark-app-theme: mat.define-dark-theme((color: (
 .mat-tab-body-wrapper {
     height: 100%;
 }
+
+.cdk-overlay-pane {
+    overflow: auto;
+    max-height: 95vh;
+}

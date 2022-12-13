@@ -12,6 +12,8 @@ import { InfoDialogComponent } from './components/info-dialog/info-dialog.compon
 // install Swiper modules
 SwiperCore.use([Lazy, Pagination, Navigation, Virtual, Keyboard]);
 
+const cardWidth = 600;
+
 @Component({
     selector: 'app-root',
     templateUrl: './root.component.html',
@@ -21,7 +23,7 @@ SwiperCore.use([Lazy, Pagination, Navigation, Virtual, Keyboard]);
 export class RootComponent {
     environment = environment;
 
-    readonly carouselImageGroups = Images
+    carouselImageGroups = Images
 
     constructor(
         private fetch: Fetch,
@@ -38,16 +40,27 @@ export class RootComponent {
 
     activeSlide = 0;
     onSlideChanged([swiper], group) {
-        group.activeSlide = swiper.activeIndex;
+        document.querySelector("swiper").querySelectorAll(".fullscreen")
+            .forEach(e => e.classList.remove('fullscreen'));
     }
 
     showInfoDialog() {
         this.dialog.open(InfoDialogComponent);
     }
 
-    spaceBetween = -300;
+    toggleFullscreen([swiper, evt]) {
+        console.log(evt);
+        const img = (evt.target as HTMLImageElement);
+
+        if (img.nodeName == "IMG")
+            img.parentElement.parentElement.classList.toggle("fullscreen");
+        else if (img.classList.contains("cover"))
+            img.parentElement.classList.toggle("fullscreen");
+    }
+
+    spaceBetween = cardWidth - (window.innerWidth - 100);
     @HostListener("window:resize", ["$event"])
     onResize() {
-        this.spaceBetween = 568 - (window.innerWidth - 100);
+        this.spaceBetween = cardWidth - (window.innerWidth - 100);
     }
 }

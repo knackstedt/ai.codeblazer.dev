@@ -5,8 +5,8 @@
         <button mat-button><a href="https://github.com/knackstedt">GitHub</a></button>
         <button mat-button><a href="https://www.linkedin.com/in/andrew-knackstedt/">LinkedIn</a></button>
         <div style="flex: 1"></div>
-        <button mat-button (click)="showInfoDialog()">
-            <img src="assets/icons/dialog-question-symbolic.svg">
+        <button mat-icon-button (click)="showInfoDialog()">
+            <img style="width: 22px; height: 22px;" src="assets/icons/dialog-question-symbolic.svg">
         </button>
     </mat-toolbar>
     <div style="flex: 1">
@@ -23,30 +23,25 @@
                     [pagination]="{ clickable: true, type: 'fraction' }"
                     [navigation]="true"
                     [keyboard]="{ enabled: true }"
-                    [virtual]="true"
+                    [virtual]="false"
                     (slideChange)="onSlideChanged($event, imageGroup)"
+                    (tap)="toggleFullscreen($event)"
                     >
                     <ng-template swiperSlide *ngFor="let image of imageGroup.items; let i = index">
-                        <div class="container" [class.opened]="imageGroup['activeSlide'] == i">
-                            <div class="details">
-                                <div class="inner">
-                                    <div class="prompt">
-                                        <span>{{image.prompt}}</span>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="container">
+                            <div class="background"></div>
+
                             <div class="cover">
                                 <img [src]="image.url">
-                                <!-- <div class="title">{{image.prompt}}</div> -->
+                            </div>
+
+                            <div class="prompt">
+                                <span>{{image.prompt}}</span>
                             </div>
                         </div>
                     </ng-template>
                 </swiper>
             </mat-tab>
-            <mat-tab>
-
-            </mat-tab>
         </mat-tab-group>
-        <!-- Snake game... -->
     </div>
 </div>
