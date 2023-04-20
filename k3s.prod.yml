@@ -1,0 +1,87 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ai.dotglitch.dev-ingress
+spec:
+  entryPoints:
+   - web
+  routes:
+    - match: Host(`ai.dotglitch.dev`) || Host(`www.ai.dotglitch.dev`)
+      kind: Rule
+      services:
+      - name: ai-art
+        port: 80
+
+---
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ai.dotglitch.dev-secure-ingress
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`ai.dotglitch.dev`) || Host(`www.ai.dotglitch.dev`)
+      services:
+        - name: ai-art
+          port: 80
+  tls:
+    secretName: ai.dotglitch.dev-tls
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ai-art
+spec:
+  selector:
+    app: ai-art
+  ports:
+  - protocol: "TCP"
+    port: 80
+    targetPort: 80
+  type: ClusterIP
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-art
+spec:
+  selector:
+    matchLabels:
+      app: ai-art
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ai-art
+    spec:
+      containers:
+      - name: ai-art
+        image: harbor.dotglitch.dev/library/ai-art:latest
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: harbor-key
+
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ai.dotglitch.dev
+spec:
+  commonName: ai.dotglitch.dev
+  dnsNames:
+    - ai.dotglitch.dev
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-prod
+  secretName: ai.dotglitch.dev-tls
+
+
