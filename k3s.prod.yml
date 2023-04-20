@@ -1,7 +1,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: ai.dotglitch.dev-ingress
+  name: ai.dotglitch.prod-ingress
 spec:
   entryPoints:
    - web
@@ -17,7 +17,7 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: ai.dotglitch.dev-secure-ingress
+  name: ai.dotglitch.prod-secure-ingress
 spec:
   entryPoints:
     - websecure

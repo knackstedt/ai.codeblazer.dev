@@ -28,7 +28,7 @@ spec:
         - name: ai-art
           port: 80
   tls:
-    secretName: ai.dotglitch.dev-tls
+    secretName: dev.ai.dotglitch.dev-tls
 
 ---
 
